@@ -193,6 +193,11 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@types/dat-gui@^0.6.3":
+  version "0.6.3"
+  resolved "https://r2.cnpmjs.org/@types/dat-gui/-/dat-gui-0.6.3.tgz#2285a22ee28fbed05f3932dda9144d18c9903b5d"
+  integrity sha512-N0JUd1/jrKQ00w0lz6uyx/4XhJ+qQb9Ir05DEzP4YS5N+vQUyKtcyVBG/u+NF7EkAkHHYDyzpvYf0AMS89R2OQ==
+
 "@types/dat.gui@^0.7.7":
   version "0.7.7"
   resolved "https://r2.cnpmjs.org/@types/dat.gui/-/dat.gui-0.7.7.tgz#2125aedfaa190364c5a50b0447858a7e159aea2e"
@@ -1089,6 +1094,11 @@ dargs@^7.0.0:
   version "7.0.0"
   resolved "https://r2.cnpmjs.org/dargs/-/dargs-7.0.0.tgz#04015c41de0bcb69ec84050f3d9be0caf8d6d5cc"
   integrity sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==
+
+dat-gui@^0.5.0:
+  version "0.5.0"
+  resolved "https://r2.cnpmjs.org/dat-gui/-/dat-gui-0.5.0.tgz#1212da836109747d0ac220bad7b07c17daa03583"
+  integrity sha512-k5iJeovXcluGh+T0hyC4C6plENCr901M0iW7p4tZe31iNhWu6HjnOjcKo7lLftpWHI8qXj+E8nVBQzin9HqZDA==
 
 dateformat@^3.0.0:
   version "3.0.3"

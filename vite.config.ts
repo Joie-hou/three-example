@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, searchForWorkspaceRoot } from "vite";
 import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
 import Components from "unplugin-vue-components/vite";
@@ -14,8 +14,17 @@ export default defineConfig({
       "@": resolve("src"),
     },
   },
+  assetsInclude: ["**/*.glb", "**/*.hdr"],
   server: {
     port: 3000,
+    fs: {
+      allow: [
+        // 搜索工作区的根目录
+        searchForWorkspaceRoot(process.cwd()),
+        // 自定义规则
+        "src/assets/draco/",
+      ],
+    },
   },
   plugins: [
     vue(),

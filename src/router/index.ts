@@ -17,9 +17,11 @@ const routes: Array<CustomRouteRecordRaw> = [
     name: "home",
     path: "/home",
     component: () => import("@/views/Index.vue"),
-    meta: {
-      redirectable: true,
-    },
+  },
+  {
+    name: "earthMoon",
+    path: "/earthMoon",
+    component: () => import("@/views/EarthMoon.vue"),
   },
 ];
 const router = createRouter({
