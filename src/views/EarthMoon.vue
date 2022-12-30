@@ -11,6 +11,7 @@ import * as dat from "dat-gui";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 //导入2d渲染器
 import { CSS2DRenderer, CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer";
+import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment";
 
 import moon from "@/assets/planets/moon_1024.jpg";
 import earthAtmos from "@/assets/planets/earth_atmos_2048.jpg";
@@ -18,6 +19,7 @@ import earthClouds from "@/assets/planets/earth_clouds_1024.png";
 import earthLights from "@/assets/planets/earth_lights_2048.png";
 import earthNormal from "@/assets/planets/earth_normal_2048.jpg";
 import earthSpecular from "@/assets/planets/earth_specular_2048.jpg";
+import gsap from "gsap";
 
 //添加gui控制操作
 const gui = new dat.GUI();
@@ -43,6 +45,10 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio); //像素比
 //渲染阴影
 renderer.shadowMap.enabled = true;
+
+const environment = new RoomEnvironment();
+const pmremGenerator = new THREE.PMREMGenerator(renderer);
+scene.environment = pmremGenerator.fromScene(environment).texture;
 
 //创建辅助器
 const axesHelper = new THREE.AxesHelper(5);
@@ -88,6 +94,19 @@ moonExample.position.set(-2, 2, 2);
 moonExample.receiveShadow = true;
 moonExample.castShadow = true;
 scene.add(moonExample);
+
+//let time = {
+//  value: 0,
+//};
+//gsap.to(time, {
+//  value: 1,
+//  duration: 5,
+//  repeat: -1,
+//  ease: "linear",
+//  onUpdate: () => {
+//    moonExample.position.set(Math.sin(time.value * Math.PI * 2) * 5, 0, Math.cos(time.value * Math.PI * 2) * 5);
+//  },
+//});
 
 //创建添加地球
 

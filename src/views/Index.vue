@@ -15,13 +15,13 @@ import { Water } from "three/examples/jsm/objects/Water2";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
-import skyStatic from "@/assets/textures/sky.jpg";
-import skyActive from "@/assets/textures/sky.mp4";
-import island2 from "@/assets/model/island2.glb";
-import waterNormal1 from "@/assets/textures/water/Water_1_M_Normal.jpg";
-import waterNormal2 from "@/assets/textures/water/Water_2_M_Normal.jpg?url";
-import hdr050 from "@/assets/050.hdr";
-import draco from "@/assets/draco/?url";
+import skyStatic from "@/assets/island/textures/sky.jpg";
+import skyActive from "@/assets/island/textures/sky.mp4";
+import island from "@/assets/island/island.glb";
+import island2 from "@/assets/island/island2.glb";
+import waterNormal1 from "@/assets/island/textures/water/Water_1_M_Normal.jpg";
+import waterNormal2 from "@/assets/island/textures/water/Water_2_M_Normal.jpg";
+import hdr050 from "@/assets/island/050.hdr";
 
 //添加gui控制操作
 const gui = new dat.GUI();
@@ -42,6 +42,10 @@ const renderer = new THREE.WebGL1Renderer({
   logarithmicDepthBuffer: true,
 });
 renderer.outputEncoding = THREE.sRGBEncoding;
+//渲染阴影
+//renderer.shadowMap.enabled = true;
+////开启物理上正确的光照模式。
+//renderer.physicallyCorrectLights = true;
 
 //设置渲染器宽高
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -69,14 +73,6 @@ function render() {
   controls.update();
 }
 render();
-
-//添加平面
-//const planeGeometry = new THREE.PlaneGeometry(100, 100);
-//const planeMaterial = new THREE.MeshBasicMaterial({
-//  color: "#ffffff",
-//});
-//const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-//scene.add(plane);
 
 //创建一个巨大球体，用来创建天空
 let texture = new THREE.TextureLoader().load(skyStatic);
@@ -116,10 +112,19 @@ hdrLoader.loadAsync(hdr050).then((texture) => {
   scene.environment = texture;
 });
 
+//添加环境光
+const amLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(amLight);
+
 //添加平行光
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(-100, 100, 10);
-//scene.add(light);
+const diLight = new THREE.DirectionalLight(0xffffff, 1);
+diLight.position.set(-100, 100, 10);
+diLight.castShadow = true;
+scene.add(diLight);
+
+//添加太阳光 不能投射阴影
+const heLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+//scene.add(heLight);
 
 //创建水面
 const waterGeometry = new THREE.CircleGeometry(300, 64);
@@ -148,7 +153,11 @@ const dracoLoader = new DRACOLoader();
 //添加Draco载入库
 dracoLoader.setDecoderPath("/draco/");
 gltfLoader.setDRACOLoader(dracoLoader);
-const gltf = gltfLoader.load(island2, (gltf) => {
+const gltf = gltfLoader.load(island, (gltf) => {
+  gltf.scene.traverse((object) => {
+    object.castShadow = true;
+    object.receiveShadow = true;
+  });
   const island = gltf.scene;
   island.position.y = -9;
   scene.add(island);

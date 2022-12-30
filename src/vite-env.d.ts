@@ -7,7 +7,15 @@ declare module "*.vue" {
   export default component;
 }
 
+declare module "*.gltf" {
+  const src: string;
+  export default src;
+}
 declare module "*.glb" {
+  const src: string;
+  export default src;
+}
+declare module "*.obj" {
   const src: string;
   export default src;
 }
