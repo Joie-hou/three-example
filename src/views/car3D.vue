@@ -196,27 +196,27 @@ const spLight = new THREE.SpotLight(0xffffff);
 function bodyTextureChange(value: Arrayable<number>) {
   bodyMaterial.roughness = value as number;
 }
-function bodyColorChange(value: string) {
+function bodyColorChange(value: string | null) {
   let v = value;
   if (!value) {
     v = "#ff0000";
   }
 
-  bodyMaterial.color.set(v);
+  bodyMaterial.color.set(v as string);
 }
-function glassColorChange(value: string) {
+function glassColorChange(value: string | null) {
   let v = value;
   if (!value) {
     v = "#ffffff";
   }
-  glassMaterial.color.set(v);
+  glassMaterial.color.set(v as string);
 }
-function detailsColorChange(value: string) {
+function detailsColorChange(value: string | null) {
   let v = value;
   if (!value) {
     v = "#ffffff";
   }
-  detailsMaterial.color.set(v);
+  detailsMaterial.color.set(v as string);
 }
 const playOrPause = ref(false);
 function carStatusChange(value: string | number | boolean) {

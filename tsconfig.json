@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "lib": ["ESNEXT", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
-    "types": ["element-plus/global", "three"],
+    "types": ["element-plus", "three"],
     "paths": {
       "@/*": ["./src/*"]
     }
